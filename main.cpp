@@ -1,5 +1,4 @@
 #include <iostream>
-#include <conio.h>
 #include <fstream>
 using namespace std;
 
@@ -198,27 +197,28 @@ int main(){
     pickarch(datosn,datos,archivo);                                                 //se eligen los archivos donde estarán los datos.
     carg_dat(KG,KM,datos);                                                          //se cargan los datos 
     carg_nom(cliente,producto,datosn);                                              //se cargan los nombres
-#pragma region punto_1
+
+    //punto 1
     save.open(archivo,ios::app);
     save<<"Listado por clientes, de los tipos de productos que superen los 13000 Kg acumulados:\n";
     save.close();
     kg13k(KG,cliente,producto,archivo);                             //se llama a "kg13k" que escribe el cliente y los productos>13k
-#pragma endregion 
-#pragma region punto_2
+
+    //punto 2
     float  km_cmax[5];                   //vector en el que se cargaran los kilometros de los productos en orden ascendente;
     list_ascen(KM,maxcliente(KM),km_cmax,//se llama a la funcion que lista ascendentemente los km recorridos con el cliente con mas productos >13k
                cliente,producto,archivo);
-#pragma endregion
-#pragma region punto_3
+
+    //punto 3
     save.open(archivo,ios::app);
     save<<"\nEl producto con menor cantidad de km recorridos es "
         <<traducir_vec(KM,km_cmax,0,maxcliente(KM),producto,idprod)                 //escribe el nombre del producto con menos km del cliente con mas productos>13000kg
         <<" con "<<km_cmax[0]<<"km."                                               //escribe la cantidad de km de km_cmax[0], es decir el producto con menos km
         <<endl<<traducir_vec(KM,km_cmax,0,maxcliente(KM),producto,idprod)           //vuelve a escribir el mismo nombre del producto
         <<" tuvo "<<cant_prod(idprod,datos)<<" entregas entre todos los clientes."; //llama a la funcion que cuenta cuantas entregas tuvo un producto a eleccion
-#pragma endregion
+
     cout<<"Los datos se encuentran en "<<archivo<<"."<<endl
         <<"Presione cualquier tecla para salir.";
-    getch();
+    cin.get();
     return 0;
 }
